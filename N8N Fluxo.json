@@ -1,0 +1,189 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.pergunta }}",
+        "options": {
+          "systemMessage": "Gerador de Animações CSS\nCrie uma animação CSS e responda somente com este JSON:\n{\n\"code\": \"HTML com <span class='selector/property/value'>...</span>\",\n\"preview\": \"<div class='nome'></div>\",\n\"style\": \"CSS puro\"\n}\nREGRAS:\nSem quebras de linha\nUse aspas simples dentro das strings\nAnimações coloridas e impressionantes\nCódigo simples com visual marcante\nFormatação com <span class='selector'>, <span class='property'>, <span\nclass='value'>\nEXEMPLO (bola pulando):\n\n{\n\"code\": \"<span class='selector'>.bola</span> { <span class='property'>width</\nspan>: <span class='value'>80px</span>; <span class='property'>height</span>:\n<span class='value'>80px</span>; <span class='property'>background</span>:\n<span class='value'>radial-gradient(#4fc3f7, #1976d2)</span>; <span\nclass='property'>border-radius</span>: <span class='value'>50%</span>; <span\nclass='property'>animation</span>: <span class='value'>pular 1s infinite</span>; }\n<span class='selector'>@keyframes</span> <span class='value'>pular</span>\n{ <span class='property'>0%</span> { <span class='property'>transform</span>:\n<span class='value'>translateY(0)</span>; } <span class='property'>50%</span>\n{ <span class='property'>transform</span>: <span\nclass='value'>translateY(-100px)</span>; } }\",\n\"preview\": \"<div class='bola'></div>\",\n\"style\": \".bola { width: 80px; height: 80px; background: radial-gradient(#4fc3f7,\n#1976d2); border-radius: 50%; animation: pular 1s infinite; } @keyframes pular { 0%\n{ transform: translateY(0); } 50% { transform: translateY(-100px); } 100% { transform:\ntranslateY(0); } }\"\n}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        200,
+        -20
+      ],
+      "id": "0ab8687a-06e2-45e2-ac96-ce3c7453342d",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "llama-3.3-70b-versatile",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        200,
+        220
+      ],
+      "id": "b23a96db-2a3c-4c00-b1b6-f47e9102f39d",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "mvO2kh75gsGeV7HU",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "animacao-css",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -280,
+        -20
+      ],
+      "id": "374bdf41-a423-4dce-b21e-fafe6d4cbc1d",
+      "name": "Webhook",
+      "webhookId": "f2948b8f-2ee6-412b-852b-8cc5f07639bd"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        840,
+        -20
+      ],
+      "id": "8a95f2ef-f77a-45fb-bb20-763e7cdad873",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f647f637-0001-41b4-98ae-ce77bfeadbdb",
+              "name": "pergunta",
+              "value": "={{ $json.body.pergunta }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -40,
+        -20
+      ],
+      "id": "e0fee10f-5dea-468f-bc25-703db296f8fa",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "dd1dcbec-a3fb-4143-b84f-6ce004393521",
+              "name": "resposta",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        580,
+        -20
+      ],
+      "id": "14656929-0fd4-4fe2-880f-ea3d8d1ce4cc",
+      "name": "Edit Fields1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "5dece00d-e361-455f-a79c-4e8c56b3e4d1",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "50267c0020060adf132eb4d37025f738685e921c56b22725f58fbaec03e8527e"
+  },
+  "id": "yoH3GeLPQpNasySz",
+  "tags": []
+}
