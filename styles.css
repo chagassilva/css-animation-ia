@@ -15,6 +15,37 @@ body {
   margin: 0 auto;
 }
 
+
+/* classe adicionada pelo o JS */
+
+.decoracao-body {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0.2;
+}
+
+/* Cada animação */
+.decoracao-body .item {
+  position: absolute !important; /* força a posição fixa */
+  animation: girar 4s infinite linear;
+  opacity: 0.6;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Alinhamento do texto */
+
+
+
 h1 {
   text-align: center; /* Alinhamento do texto */
   font-size: 36px; /* Tamanho do texto */
@@ -32,6 +63,11 @@ h2 {
   border-radius: 15px;
   height: max-content;
   padding: 30px 30px;
+}
+
+.main-container, section, main, .sessao-maior {
+  position: relative;
+  z-index: 10; /* garante prioridade visual */
 }
 
 main {

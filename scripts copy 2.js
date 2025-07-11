@@ -22,6 +22,7 @@ async function cliqueiNoBotao() {
   let areaResultado = document.querySelector(".area-resultado");
   let loader = document.querySelector(".loader");
   let botao = document.querySelector(".botao-magica");
+ 
 
   // Prepara a interface
   botao.disabled = true;
@@ -51,39 +52,15 @@ async function cliqueiNoBotao() {
     // Coloca os resultados na tela
     codigo.innerHTML = info.code; // mostra ao usuário
     areaResultado.innerHTML = info.preview; // mostra o preview
-    console.log(resultado.resposta);
+    // Cria uma nova <style> e injeta o CSS completo retornado
+    
+    
 
     // Adiciona o CSS retornado
     document.head.insertAdjacentHTML(
       "beforeend",
       "<style>" + info.style + "</style>"
     );
-
-    // Remove container antigo de decoração, se existir, para resetar animação
-    const decoracaoAntiga = document.querySelector(".decoracao-body");
-    if (decoracaoAntiga) {
-      decoracaoAntiga.remove();
-    }
-
-    // Cria container para decoração no body
-    let decoracaoContainer = document.createElement("div");
-    decoracaoContainer.className = "decoracao-body";
-
-    // Criar múltiplas instâncias da animação decorativa
-    for (let i = 0; i < 50; i++) {
-      let clone = document.createElement("div");
-      clone.className = "item";
-      clone.innerHTML = info.preview; // exemplo: <div class="bola"></div>
-
-      // Posiciona em local aleatório
-      clone.style.top = Math.random() * 100 + "%";
-      clone.style.left = Math.random() * 100 + "%";
-      clone.style.transform = `scale(${Math.random() * 0.5 + 0.5})`;
-
-      decoracaoContainer.appendChild(clone);
-    }
-
-    document.body.appendChild(decoracaoContainer);
 
     // Atualiza a interface
     botao.textContent = "Criar Mágica ✨";
