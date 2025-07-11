@@ -1,34 +1,45 @@
-<!DOCTYPE html> <!-- A VERSÃO MAIS NOVA DO HTML -->
+<!DOCTYPE html>
+<!-- A VERSÃO MAIS NOVA DO HTML -->
 <html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
     <title>DevClub - Criador Mágico com IA</title>
-</head>
+  </head>
 
-<body>
-    <h1>✨ Criador Mágico de Animações com IA e CSS</h1>
+  <body>
+    <div class="main-container">
+      <h1>✨ Animações CSS com IA</h1>
 
-    <!-- PRINCIPAL / CAIXA INVESÍVEIS-->
-    <main>
+      <!-- PRINCIPAL / CAIXA INVESÍVEIS-->
+      <main>
         <section class="sessao-maior">
-            <h2>💻 Código CSS</h2>
-            <div class="area-codigo">// Aqui aparecerá o código da animação...</div>
+          <h2>💻 Código CSS</h2>
+          <div class="area-codigo">
+            // Aqui aparecerá o código da animação...
+          </div>
         </section>
 
         <section class="sessao-maior">
-            <h2>🎨 Resultado aqui</h2>
-            <div class="area-resultado">A mágica aparecerá aqui...</div>
+          <h2>🎨 Resultado</h2>
+          <div class="loader" style="display: none">⏳ Gerando animação...</div>
+          <div class="area-resultado">A mágica aparecerá aqui...</div>
         </section>
-    </main>
+      </main>
 
-    <section class="sessao-menor">
-        <input class="input-animacao"  placeholder="Descreva a animação que você quer...Ex: Caixa rodando.">
-        <button onclick="cliqueiNoBotao()" class="botao-magica">Criar Mágica ✨</button>
-    </section>
-</body>
-<script src="scripts.js"></script>
-
+      <section class="sessao-menor">
+        <input
+          class="input-animacao"
+          placeholder="Descreva a animação que você quer...Ex: Caixa rodando."
+        />
+        <button onclick="cliqueiNoBotao()" class="botao-magica">
+          Criar Mágica ✨
+        </button>
+        
+      </section>
+    </div>
+    <section  class="hand"><img src="/assets/405497841_bd563c6f-b2ef-400a-b111-3f9ff19d5a56.jpg" /></section>
+  </body>
+  <script src="scripts.js"></script>
 </html>

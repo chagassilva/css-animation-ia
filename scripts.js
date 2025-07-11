@@ -1,58 +1,92 @@
-/* 
-VÁRIAVEIS - Um pedacinho de memória do computador
-que eu posso guardar o que eu quiser.
 
-FUNCOES
-É um pedacinho de código QUE, só executa 
-Quando é chamado.
+  let webhook =
+    "https://n8n.chagassilva.com/webhook/animation-css";
 
-documet = HTML
-querySelector = buscar alguém no HTML
+  // Função auxiliar: gera uma Promise que rejeita após X ms
+  function timeoutPromise(ms) {
+    return new Promise((_, reject) =>
+      setTimeout(() => reject(new Error("⏰ Tempo limite excedido. O servidor demorou para responder.")), ms)
+    );
+  }
 
-fetch - ferramenta para se comunicar com algo fora do codigo
+  // Função principal chamada ao clicar no botão
+  async function cliqueiNoBotao() {
+    let textoInput = document.querySelector(".input-animacao").value;
+    let codigo = document.querySelector(".area-codigo");
+    let areaResultado = document.querySelector(".area-resultado");
+    let loader = document.querySelector(".loader");
+    let botao = document.querySelector(".botao-magica");
 
-[x] Descobrir quando o botão foi clicado
-[x] Pegar o que foi escrito no Input
-[x] Enviar para o N8N
-[x] Receber o que o N8N Respondeu
-[x] Colocar na Tela o que ele respondeu    
+    // Prepara a interface
+    botao.disabled = true;
+    botao.textContent = "Criando...";
+    botao.style.background = "#888888";
+    loader.style.display = "block";
+    areaResultado.innerHTML = ""; // limpa resultado anterior
 
-*/
-let webhook = "https://n8n.chagassilva.com/webhook/animacao-css"
+    try {
+      // Executa o fetch com timeout de 10s
+      let resposta = await Promise.race([
+        fetch(webhook, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ digitado: textoInput }),
+        }),
+        timeoutPromise(10000), // 10 segundos de limite
+      ]);
 
-// funcao assincrona
-async function cliqueiNoBotao() {
-    let textoInput = document.querySelector(".input-animacao").value
-    let codigo = document.querySelector(".area-codigo")
-    let areaResultado = document.querySelector(".area-resultado")
-    let botao = document.querySelector(".botao-enviar")
+      if (!resposta.ok) {
+        throw new Error("❌ Erro na resposta do servidor");
+      }
 
-    botao.disabled = true // desabilita o botão enquanto espera a resposta
-    botao.innerHTML = "Enviando..." // muda o texto do botão
-    botao.style.backgroundColor = "#cccccc" // muda a cor do botão para indicar que está carregando
+      let resultado = await resposta.json();
+      let info = JSON.parse(resultado.resposta);
 
-    // fetch - 1) O endereco 2) configuracoes 3) os dados
-    // JSON - O formato de dados que usamos na internet
+      // Coloca os resultados na tela
+      codigo.innerHTML = info.code;
+      areaResultado.innerHTML = info.preview;
 
-    let resposta = await fetch(webhook, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ pergunta: textoInput })
-    })
+      // Adiciona o CSS retornado
+      document.head.insertAdjacentHTML("beforeend", "<style>" + info.style + "</style>");
 
-    let resultado = await resposta.json()
+      // Atualiza a interface
+      botao.textContent = "Criar Mágica ✨";
+      botao.style.background = "#5d1f2e";
+    } catch (error) {
+      console.error("Erro:", error);
 
-    let info = JSON.parse(resultado.resposta)
+      areaResultado.innerHTML = `<p style="color: red;">${error.message}</p>`;
+      botao.textContent = "Tentar Novamente";
+      botao.style.background = "#E35959";
+    } finally {
+      loader.style.display = "none";
+      botao.disabled = false;
+    }
+  }
 
-    console.log(info)
+  // Ativa/desativa o botão com base no input
+  let input = document.querySelector(".input-animacao");
+  let botao = document.querySelector(".botao-magica");
 
-    codigo.innerHTML = info.code
+  function checarInput() {
+    if (input.value.trim() === "") {
+      botao.disabled = true;
+      botao.style.background = "rgb(93 31 46 / 47%)";
+    } else {
+      botao.disabled = false;
+      botao.style.background = "#5d1f2e";
+    }
+  }
 
-    areaResultado.innerHTML = info.preview
-    botao.disabled = false // habilita o botão novamente
-    botao.innerHTML = "Enviar" // volta o texto do botão    
+  input.addEventListener("input", checarInput);
+ 
+  document.querySelector(".botao-magica").addEventListener("mouseover", function() {
+  if(input.value.trim() === ""){
 
-    // Adiciona o estilo ao head do documento
-    document.head.insertAdjacentHTML('beforeend', "<style>"+ info.style +"</style>")
-}
+    alert("Por favo! escolha sua animação")
+
+  }
+});
+
+  checarInput(); // roda ao carregar
 
