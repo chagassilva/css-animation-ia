@@ -5,40 +5,53 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
-    <title>DevClub - Criador Mágico com IA</title>
+    <title>DevAnimantion - Criador Mágico com IA</title>
   </head>
 
   <body>
-    <div class="main-container">
-      <h1>✨ Animações CSS com IA</h1>
+    <section class="teste">
+      <section class="main-container">
+        <h1>✨ Animações CSS com IA</h1>
 
-      <!-- PRINCIPAL / CAIXA INVESÍVEIS-->
-      <main>
-        <section class="sessao-maior">
-          <h2>💻 Código CSS</h2>
-          <div class="area-codigo">
-            // Aqui aparecerá o código da animação...
-          </div>
+        <!-- PRINCIPAL / CAIXA INVESÍVEIS-->
+        <main>
+          <section class="slide-in-left">
+          <section class="sessao-maior">
+            <div class="iagif">
+              <!-- 💻 Código CSS -->
+              <img src="/assets/codificacao.gif" />
+              <h2>Código CSS</h2>
+            </div>
+            <div class="area-codigo">
+              // Aqui aparecerá o código da animação...
+            </div>
+            </section>
+          </section>
+
+          <section class="slide-in-right">
+          <section class="sessao-maior">
+            <h2>🎨 Resultado</h2>
+            <div class="loader" style="display: none">
+              ⏳ Gerando animação...
+            </div>
+            <div class="area-resultado">A mágica aparecerá aqui...</div>
+          </section>
+          </section>
+        </main>
+
+        <section class="slide-in-bottom">
+        <section class="sessao-menor">
+          <input
+            class="input-animacao"
+            placeholder="Descreva a animação que você quer...Ex: Caixa rodando."
+          />
+          <button onclick="cliqueiNoBotao()" class="botao-magica">
+            Criar Mágica ✨
+          </button>
         </section>
-
-        <section class="sessao-maior">
-          <h2>🎨 Resultado</h2>
-          <div class="loader" style="display: none">⏳ Gerando animação...</div>
-          <div class="area-resultado">A mágica aparecerá aqui...</div>
         </section>
-      </main>
-
-      <section class="sessao-menor">
-        <input
-          class="input-animacao"
-          placeholder="Descreva a animação que você quer...Ex: Caixa rodando."
-        />
-        <button onclick="cliqueiNoBotao()" class="botao-magica">
-          Criar Mágica ✨
-        </button>
-        
       </section>
-    </div>
+    </section>
   </body>
   <script src="scripts.js"></script>
 </html>

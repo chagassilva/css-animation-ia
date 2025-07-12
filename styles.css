@@ -15,7 +15,6 @@ body {
   margin: 0 auto;
 }
 
-
 /* classe adicionada pelo o JS */
 
 .decoracao-body {
@@ -44,18 +43,40 @@ body {
 
 /* Alinhamento do texto */
 
-
-
 h1 {
   text-align: center; /* Alinhamento do texto */
   font-size: 36px; /* Tamanho do texto */
   color: #ffffff;
 }
 
-h2 {
+.iagif > h2 {
   color: #051626;
-  margin-bottom: 20px;
   font-size: 24px;
+}
+
+.iagif {
+  height: auto;
+  margin-top: 0px;
+  line-height: 0;
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 40px 1fr;
+  gap: 20px;
+}
+
+.iagif img {
+  width: 50px;
+  height: 50px;
+}
+
+.teste {
+  background-color: transparent;
+  height: 100vh;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .main-container {
@@ -65,9 +86,13 @@ h2 {
   padding: 30px 30px;
 }
 
-.main-container, section, main, .sessao-maior {
+.main-container,
+section,
+main,
+.sessao-maior {
   position: relative;
   z-index: 10; /* garante prioridade visual */
+  width: 100%;
 }
 
 main {
@@ -82,7 +107,9 @@ main {
   border-radius: 8px; /*Arredondar a borda */
   padding: 30px;
   height: 400px; /* altura */
+
 }
+
 
 .area-codigo {
   background: #051626;
@@ -130,7 +157,7 @@ button {
   color: #f8f9fa;
   cursor: pointer;
   transition: 0.5s;
-  width: auto;
+  width: 25%;
 }
 
 button:hover {
@@ -162,12 +189,10 @@ button:active {
   }
 }
 
-.hand{
-
-    display: flex;
+.hand {
+  display: flex;
   justify-content: end;
   align-self: flex-end;
-
 }
 
 .hand img {
@@ -176,4 +201,68 @@ button:active {
   display: flex;
   justify-content: end;
   align-self: flex-end;
+}
+
+
+/* Animations */
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-right {
+  animation: slideInRight 0.8s ease-out forwards;
+}
+
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-left {
+  animation: slideInLeft 0.8s ease-out forwards;
+}
+
+@keyframes slideInTop {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-top {
+  animation: slideInTop 0.8s ease-out forwards;
+}
+
+@keyframes slideInBottom {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-bottom {
+  animation: slideInBottom 0.8s ease-out forwards;
 }
