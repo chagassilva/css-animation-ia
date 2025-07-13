@@ -92,7 +92,7 @@ main,
 .sessao-maior {
   position: relative;
   z-index: 10; /* garante prioridade visual */
-  width: 100%;
+ width: 100%;
 }
 
 main {
@@ -107,9 +107,7 @@ main {
   border-radius: 8px; /*Arredondar a borda */
   padding: 30px;
   height: 400px; /* altura */
-
 }
-
 
 .area-codigo {
   background: #051626;
@@ -189,7 +187,7 @@ button:active {
   }
 }
 
-.hand {
+/* .hand {
   display: flex;
   justify-content: end;
   align-self: flex-end;
@@ -201,8 +199,7 @@ button:active {
   display: flex;
   justify-content: end;
   align-self: flex-end;
-}
-
+} */
 
 /* Animations */
 
@@ -220,7 +217,6 @@ button:active {
 .slide-in-right {
   animation: slideInRight 0.8s ease-out forwards;
 }
-
 
 @keyframes slideInLeft {
   from {
@@ -265,4 +261,44 @@ button:active {
 
 .slide-in-bottom {
   animation: slideInBottom 0.8s ease-out forwards;
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  /* Estilos para celulares grandes e tablets menores */
+
+  main {
+    flex-direction: column-reverse;
+  }
+
+  .teste {
+    min-height: 1200px;
+  }
+
+  body {
+    margin: 20px auto;
+  }
+
+  .sessao-menor {
+  display: grid;
+  grid-template-columns: 1fr;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.input-animacao{width: 100%;}
+.botao-magica{width: 100%; justify-content: center; align-items: center;}
+
+.main-container, section, main, .sessao-maior {
+    
+  width: 100%;
+
+}
+
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Estilos para tablets e notebooks menores */
+  .input-animacao{width: 100%;}
+.botao-magica{width: 60%; justify-content: center; align-items: center;}
+
 }
